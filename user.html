@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input ID Channel</title>
+</head>
+<body style="text-align: center; margin-top: 100px;">
+  <h1>Masukkan ID Channel WhatsApp</h1>
+  <input type="text" id="idInput" placeholder="Contoh: 120363417102716786" />
+  <button onclick="submitID()">Kirim</button>
+  <p id="status"></p>
+  <script>
+    function submitID() {
+      const id = document.getElementById('idInput').value.trim();
+      fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      }).then(res => res.json()).then(data => {
+        document.getElementById('status').innerText = data.message;
+        document.getElementById('idInput').value = '';
+      });
+    }
+  </script>
+</body>
+</html>

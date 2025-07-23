@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+</head>
+<body style="text-align: center; margin-top: 50px;">
+  <h1>Data ID Channel</h1>
+  <button onclick="loadIDs()">Muat Data</button>
+  <button onclick="copyAll()">Salin Semua</button>
+  <div id="output" style="margin-top: 20px;"></div>
+  <script>
+    function loadIDs() {
+      fetch('/api/get-ids')
+        .then(res => res.json())
+        .then(data => {
+          const out = data.ids.map(id => `_0x4be15f.newsletterFollow("${id}@newsletter");`).join('\n');
+          document.getElementById('output').innerText = out;
+        });
+    }
+    function copyAll() {
+      const text = document.getElementById('output').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Disalin ke clipboard!');
+    }
+  </script>
+</body>
+</html>
